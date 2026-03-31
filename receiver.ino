@@ -95,7 +95,7 @@ void loop() {
       receivedCount++;
       if (expectedID != -1 && id > expectedID) lostCount += (id - expectedID);
       expectedID = id + 1;
-      float loss = (float)lostCount / (receivedCount + lostCount) * 100.0;
+      float loss = (float)(100 - receivedCount) / 100.0 * 100.0;
 
       Serial.print(tag); Serial.print(" ID:"); Serial.print(id);
       Serial.print(" | SNR:"); Serial.print(snr);
