@@ -87,7 +87,7 @@ void handleSerial() {
       if (sscanf(input.c_str(), "s %d %d", &sf, &inter) == 2 || 
           sscanf(input.c_str(), "S %d %d", &sf, &inter) == 2) {
             
-        if (sf >= 7 && sf <= 12 && inter > 0) {
+        if (sf >= 6 && sf <= 12 && inter > 0) {
           currentMode = STRESS_TEST;
           testInterval = inter;
           updateParams(sf);
@@ -95,10 +95,10 @@ void handleSerial() {
           Serial.print(", Interval "); Serial.print(inter); Serial.println("ms");
           lastSendTime = millis() - testInterval; // 立刻觸發
         } else {
-          Serial.println(">>> 參數錯誤：SF 需介於 7-12，Interval 需 > 0");
+          Serial.println(">>> 參數錯誤：SF 需介於 6-12，Interval 需 > 0");
         }
       } else {
-        Serial.println(">>> 格式錯誤：請使用 s [SF] [Interval] (例如 s 7 150)");
+        Serial.println(">>> 格式錯誤：請使用 s [SF] [Interval] (例如 s 6 150)");
       }
       
     } else if (lowerInput.startsWith("l ")) {
@@ -119,7 +119,7 @@ void handleSerial() {
       }
     } else {
       int sf = input.toInt();
-      if (sf >= 7 && sf <= 12) {
+      if (sf >= 6 && sf <= 12) {
         currentMode = FORMAL_TEST;
         updateParams(sf);
         testInterval = getSafeInterval(sf);
@@ -182,7 +182,7 @@ void printMenu() {
   Serial.println("\n--- 控制指令 ---");
   Serial.println("  l [Len]    : 設定封包長度 (例如 l 64，預設 32)"); // 新增這行
   Serial.println("  p          : 環境測試(SF7)");
-  Serial.println("  7-12       : 正式測試(100包)");
+  Serial.println("  6-12       : 正式測試(100包)");
   Serial.println("  s [SF] [I] : 壓力測試(s 7 150)");
   Serial.println("  x          : 停止");
 }
